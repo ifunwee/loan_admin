@@ -1,0 +1,59 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/node.css">
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="main-body">
+
+    <div class="userlist">
+      <p class="title"></p>
+      <table class="list table table-bordered table-hover">
+
+        <thead>
+        <tr>
+          <th>编号</th>
+          <th>名称</th>
+          <th>显示名</th>
+          <th>状态</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <Volist name="node" id="node">
+          <tr>
+            <td>{$node.id}</td>
+            <td>{$node.name}</td>
+            <td>{$node.title}</td>
+            <td>
+              <if condition="$node.status eq '1' ">
+                启用
+                <else/>
+                禁用
+              </if>
+            </td>
+            <td>
+              <span><a href="#">编辑</a></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <if condition="$node.status eq '1' ">
+                <span><a href="#}">禁用</a></span>
+                <else/>
+                <span><a href="#}">启用</a></span>
+              </if>
+
+            </td>
+
+          </tr>
+        </Volist>
+        </tbody>
+      </table>
+      <div class="method">
+        <a href="__URL__/addnode" class="brand">新增节点</a>
+      </div>
+    </div>
+  </div>
+  <!-- 主页面开始 -->
+
+</block>

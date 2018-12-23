@@ -1,0 +1,70 @@
+<html>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>后台管理</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/supersized.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/login_style.css">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="__PUBLIC__/Admin/js/html5.js"></script>
+  <![endif]-->
+
+</head>
+
+<body style="margin-top:16.78%">
+
+<div class="page-container">
+  <!--<h3><img src="__PUBLIC__/Admin/img/login_logo.png" alt="Logo"/></h3>-->
+
+  <form id="loginForm" action="__URL__/checklogin" role="form" method="post">
+    <div><input type="text" name="username" id="username" autocomplete="off" class="username"
+                placeholder="请输入您的用户名！" style="border-radius: 5px"></div>
+    <div><input type="password" name="password" id="password" autocomplete="off" class="password"
+                placeholder="请输入您的用户密码！" style="border-radius: 5px"></div>
+    <div><input type="Captcha" class="Captcha" name="verify" id="verify" autocomplete="off"
+                placeholder="请输入验证码！" style="border-radius: 5px">
+      <img id="verifyImg" style="width: 89px;height: 32px;margin-top:30px;border-radius: 5px"
+           alt="验证码" src="__URL__/verify" onclick="pe_yzm(this)"/>
+    </div>
+    <button type="submit" id="submit" class="flip-link btn btn-info" style="border-radius: 5px">登录
+    </button>
+    <div class="error"><span>+</span></div>
+  </form>
+</div>
+
+<!-- Javascript -->
+<script type="text/javascript" src="__PUBLIC__/Admin/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/supersized.3.2.7.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/supersized-init.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/scripts.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/Admin/js/login.js"></script>
+<script type="text/javascript">
+    function pe_yzm(_this) {
+        var yzm_url = $(_this).attr("src");
+        var yzm_time = new Date().getTime();
+        if (yzm_url.indexOf("time") >= 0) {
+            yzm_url = yzm_url.replace(/time=\d+/, 'time=' + yzm_time);
+        }
+        else {
+            yzm_url += (yzm_url.indexOf("?") >= 0 ? '&' : '?') + 'time=' + yzm_time;
+        }
+        $(_this).attr("src", yzm_url);
+    }
+</script>
+
+</body>
+
+</html>
+

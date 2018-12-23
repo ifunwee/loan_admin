@@ -1,0 +1,259 @@
+<extend name="Public/base"/>
+
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <link rel="stylesheet" href="__PUBLIC__/Admin/js/kindeditor/themes/default/default.css"/>
+  <script src="__PUBLIC__/Admin/js/kindeditor/kindeditor.js" type="text/javascript"></script>
+  <script src="__PUBLIC__/Admin/js/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+  <div class="main-body">
+    <h2 class="sub-header">
+      <empty name="id">添加
+        <else/>
+        编辑
+      </empty>
+      产品
+      <a href="{:U('index')}" class="btn btn-info pull-right">返回产品列表</a>
+    </h2>
+    <hr/>
+    <div class="add_user">
+      <form method="post" class="form-horizontal" action="{:U('edit')}">
+        <div class="control-group">
+          <label for="title" class="control-label">名称：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="title" id='title' placeholder="请输入产品名称"
+                   value="{$data.title}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="logo" class="control-label">LOGO：</label>
+
+          <div class="controls">
+            <!--挂件参数 array(表单元素name, 表单元素标识, 图片地址, 图片上传目录, 图片展示宽度（可选）, 图片上传别名空间（可选）)-->
+            {:W('Upload/image', array('logo', 'logo', $data[logo], 'logo', '100'))}
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="description" class="control-label">业务介绍：</label>
+
+          <div class="controls">
+            <textarea type='text' class="form-control" name="description" style="height: 80px;">{$data.description}</textarea>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="amount_min" class="control-label">最低额度：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="amount_min" id='amount_min'
+                   placeholder="最低额度" value="{$data.amount_min}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="amount_max" class="control-label">最高额度：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="amount_max" id='amount_max'
+                   placeholder="最高额度" value="{$data.amount_max}">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="title" class="control-label">跳转链接：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="url" id='url' placeholder="请输入该产品的跳转链接"
+                   value="{$data.url}">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="sort" class="control-label">序号：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="sort" id='sort' placeholder="数字越大排越前面"
+                   value="<eq name='data.sort' value='0'><else/>{$data.sort}</eq>">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">状态：</label>
+
+          <div class="controls">
+            <notempty name="id">
+              <label><input type="radio" name="status" id="status-on" value="1" class="radio inline"
+                <notempty name="data.status">checked</notempty>
+                />上架</label>
+              <label><input type="radio" name="status" id="status-off" value="0"
+                            class="radio inline"
+                <empty name="data.status">checked</empty>
+                />下架</label>
+              <else/>
+              <label><input type="radio" name="status" id="status-on" value="1" class="radio inline"
+                            checked/>上架</label>
+              <label><input type="radio" name="status" id="status-off" value="0"
+                            class="radio inline"/>下架</label>
+            </notempty>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="remark" class="control-label">备注：</label>
+
+          <div class="controls">
+            <textarea type='text' class="form-control" name="remark"
+                      style="height: 150px; width: 300px;">{$data.remark}</textarea>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <input type="submit" class="btn btn-info submit" style="width: 99%;"/>
+          <input type="hidden" name="recommend_goods_id" id="recommend_goods_id"
+                 value="{$recommend_goods_id}">
+          <input type="hidden" name="id" value="{$id}">
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <script>
+      var zindex = 0;
+      function make_draggable(elements) {
+          elements.draggable({
+              opacity: 0.8,
+              containment: 'parent',
+              snap: true,
+              start: function (e, ui) {
+                  if (ui.helper.css('z-index') < zindex) {
+                      getMaxZindex();
+                  }
+                  ui.helper.css('z-index', zindex);
+              },
+              stop: function (e, ui) {
+                  ui.helper.find(".left").val(ui.position.left);
+                  ui.helper.find(".top").val(ui.position.top);
+                  ui.helper.find(".zindex").val(zindex);
+              }
+          });
+      }
+
+      function getMaxZindex() {
+          var tmp;
+          $('.note').each(function () {
+              tmp = $(this).css('z-index');
+              if (tmp > zindex) zindex = tmp;
+          });
+
+          zindex++;
+          return zindex;
+      }
+
+      $(function () {
+          make_draggable($('.note'));
+
+
+          $(".cate-add").click(function () {
+              var trs = $('#cate-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#cate-clone").clone(true);
+              clone_node.find(".cate-title").val("").attr('name', 'cate[' + item_index + '][title]');
+              clone_node.find(".cate-seo-title").val("").attr('name', 'cate[' + item_index + '][seo_title]');
+              clone_node.find(".cate-url").val("").attr('name', 'cate[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#cate-table').append(clone_node);
+          });
+
+          $(".theme-add").click(function () {
+              var trs = $('#theme-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#theme-clone").clone(true);
+              clone_node.find(".theme-image").val("").attr('name', 'theme[' + item_index + '][image]');
+              clone_node.find(".theme-seo-title").val("").attr('name', 'theme[' + item_index + '][seo_title]');
+              clone_node.find(".theme-title").val("").attr('name', 'theme[' + item_index + '][title]');
+              clone_node.find(".theme-url").val("").attr('name', 'theme[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#theme-table').append(clone_node);
+          });
+
+          $(".goods-add").click(function () {
+              var trs = $('#goods-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#goods-clone").clone(true);
+              clone_node.find(".goods-id").val("").attr('name', 'goods[' + item_index + '][goods_id]');
+              clone_node.find(".goods-title").val("").attr('name', 'goods[' + item_index + '][title]');
+              clone_node.find(".goods-image").val("").attr('name', 'goods[' + item_index + '][image]');
+              clone_node.find(".goods-url").val("").attr('name', 'goods[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#goods-table').append(clone_node);
+          });
+
+          var url = '__URL__/window';
+          $(".window-add").click(function () {
+              layer.open({
+                  type: 2,
+                  title: '添加到橱窗',
+                  shadeClose: true, //点击遮罩关闭层
+                  area: ['800px', '500px'],
+                  content: url
+              });
+          });
+
+
+          $(".item-del").click(function () {
+              if (confirm('确定要删除该项吗？')) {
+                  $(this).parent().parent().remove();
+              }
+          });
+
+          $(".recommend").change(function () {
+              var goods_id = $(this).parents(".item").find(".goods-id").val();
+              if (!goods_id) {
+                  alert('请先填写商品ID');
+                  $(this).attr('checked', false);
+              }
+              $("#recommend_goods_id").val(goods_id);
+          });
+
+          $(".goods-id").blur(function () {
+              var input = $(this);
+              var goods_id = $(this).val();
+              var url = '{:U("AjaxCommon/getGoodsInfoByGoodsId")}';
+              var item = $(this).parent().parent();
+              $.getJSON(url, {goods_id: goods_id, filter_lol: 1}, function (json) {
+                  if (!json.status) {
+                      input.val("").focus();
+                      alert(json.msg);
+                  } else {
+                      html = ''
+                          + '<img src="' + json.data.pic_url + '"/>'
+                          + '<span>' + json.data.product_name + '<br>'
+                          + '原价：<del>&yen;' + json.data.org_price + '</del>&nbsp;&nbsp;优惠价：<em>&yen;' + json.data.price + '</em>&nbsp;&nbsp;销量：<i>' + json.data.recentvolume + '</i></span>';
+                      input.parent().find('.goods-info').html(html);
+                  }
+              });
+          });
+
+
+      })
+  </script>
+  <style>
+    .goods-info {
+      margin: 10px auto;
+    }
+
+    .goods-info span {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .goods-info img {
+      width: 80px;
+      height: 80px;
+      margin-right: 10px;
+    }
+  </style>
+</block>
+

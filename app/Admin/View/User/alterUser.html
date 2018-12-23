@@ -1,0 +1,53 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/node.css">
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+
+  <div class="div_head">
+    <h2 class="sub-header">会员信息修改</h2>
+    <hr/>
+    <span>
+
+                <span style="float:right;margin-right: 8px;font-weight: bold">
+                    <a style="text-decoration: none" href="{:U('index')}"
+                       class="btn btn-info">返回</a>
+                </span>
+            </span>
+  </div>
+  <div></div>
+
+  <div style="font-size: 13px;margin: 10px 5px">
+
+    <form action="__URL__/edit/id/{$data.id}" method="post" enctype="multipart/form-data"
+          class="alt">
+      <table class='table'>
+        <tr>
+          <td align="right">用户名称：<input type="text" name="username" value="{$data.username}"/></td>
+
+        </tr>
+
+        <tr>
+          <td align="right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<input type="text"
+                                                                                      name="email"
+                                                                                      value="{$data.email}"/>
+          </td>
+
+        </tr>
+        <td colspan="2" align="center">
+          <input type="hidden" value="{$data.id}" name="id">
+          <input type="submit" value="确认修改" class="btn btn-info alt"/>
+        </td>
+        </tr>
+        </tr>
+      </table>
+    </form>
+  </div>
+</block>
+
+<block name="javascript">
+  <script src="__PUBLIC__/Admin/js/vip.js"></script>
+</block>

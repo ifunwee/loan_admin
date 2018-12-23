@@ -1,0 +1,88 @@
+<style>
+  .clf::after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+  }
+
+  .p-pager-box {
+    padding-top: 0px;
+    float: right;
+  }
+
+  .p-pager .current {
+    background-color: #838183;
+  }
+
+  .p-pager .current, .p-pager li:hover {
+    border-color: #838183;
+  }
+
+  .p-pager li {
+    background-color: #fffdf0;
+    border: 1px solid #dcdcdc;
+    border-radius: 2px;
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 8px;
+    overflow: hidden;
+  }
+
+  .p-pager .current a, .p-pager .current:hover a {
+    color: #fff;
+  }
+
+  .p-pager a {
+    color: #b4b4b4;
+    display: block;
+    padding: 0 10px;
+  }
+
+  :focus, *:link, *:visited, a:hover, ins {
+    text-decoration: none;
+  }
+
+  a {
+    color: #646464;
+  }
+</style>
+<div class="p-pager-box clf">
+  <ul class="p-pager">
+    <notempty name="links.firstPage">
+      <li><a href="{$links.firstPage}">首页</a></li>
+    </notempty>
+
+    <notempty name="links.previousRow">
+      <li><a href="{$links.previousRow}">&lt;&lt;</a></li>
+    </notempty>
+
+    <notempty name="links.previousPage">
+      <li><a href="{$links.previousPage}">&lt;上一页</a></li>
+    </notempty>
+
+
+    <volist name="links.numberLinks" id="href">
+      <if condition="$key == $currentPage">
+        <assign name="class" value="current"/>
+        <else/>
+        <assign name="class" value=""/>
+      </if>
+      <li class="{$class}"><a href="{$href}">{$key}</a></li>
+    </volist>
+
+    <notempty name="links.nextPage">
+      <li><a href="{$links.nextPage}">下一页&gt;</a></li>
+    </notempty>
+
+    <notempty name="links.nextRow">
+      <li><a href="{$links.nextRow}">&gt;&gt;</a></li>
+    </notempty>
+
+    <notempty name="links.lastPage">
+      <li><a href="{$links.lastPage}">尾页</a></li>
+    </notempty>
+  </ul>
+</div>

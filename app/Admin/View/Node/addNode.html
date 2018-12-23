@@ -1,0 +1,80 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/node.css">
+</block>
+
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="sub-header">添加节点</h2>
+        <hr/>
+        <div class="table-responsive">
+          <form action="__URL__/addNodeHandle" method="post" enctype="multipart/form-data"
+                class="addnode">
+            <table class='table'>
+              <if condition="$type eq '动作方法' ">
+                <tr>
+                  <td align="right">{$type}名称：<select id="name" name="name">
+                    <option>--请选择--</option>
+                    <foreach name="listff" item="vo">
+
+                      <option value="{$vo}" selected="{$vo}">{$vo}</option>
+                    </foreach>
+                  </select>
+                  </td>
+
+                </tr>
+
+                <else/>
+                <tr>
+                  <td align="right"><span>{$type}名称：&nbsp;</span><input type="text"
+                                                                        name="name"/><span>for English</span>
+                  </td>
+
+                </tr>
+
+              </if>
+
+
+              <tr>
+                <td align="right"><span>{$type}描述：&nbsp;</span><input type="text" name="title"/>
+                </td>
+
+              </tr>
+              <tr>
+                <td align="right"><span>&nbsp;是否开启：&nbsp;</span><input
+                  type="radio" name="status" value="1"
+                  checked="checked"/>&nbsp;开启&nbsp;
+                  <input type="radio" name="status" value="0"/>&nbsp;关闭&nbsp;
+                </td>
+
+              </tr>
+              <tr>
+                <td align="right"><span>{$type}排序：&nbsp;</span><input type="text" name="sort"
+                                                                      value="1"/></td>
+
+              <tr>
+                <td colspan="2" align="center">
+                  <input type="hidden" name="pid" value="{$pid}"/>
+                  <input type="hidden" name="level" value="{$level}"/>
+                  <input type="submit" value="点击添加" class="btn btn-info edit"/>
+                </td>
+              </tr>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</block>
+
+<block name="javascript">
+  <script src="__PUBLIC__/Admin/js/Node.js"></script>
+</block>

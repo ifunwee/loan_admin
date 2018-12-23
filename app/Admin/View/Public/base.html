@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{$title}</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css"/>
+  <!--<link rel="stylesheet" href="__PUBLIC__/Admin/css/fullcalendar.css"/>-->
+  <link rel="stylesheet" href="__PUBLIC__/Admin/css/matrix-style.css"/>
+  <link rel="stylesheet" href="__PUBLIC__/Admin/css/matrix-media.css"/>
+  <link href="__PUBLIC__/Admin/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="__PUBLIC__/Admin/css/toastr.min.css"/>
+  <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>-->
+  <script src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+  <script src="__PUBLIC__/Admin/js/jquery.ui.custom.js"></script>
+  <script src="__PUBLIC__/Static/My97DatePicker/WdatePicker.js"></script>
+  <block name="css">
+  </block>
+  <script type="text/javascript">
+      var fun = {
+          'ROOT': '__ROOT__',
+          'MODULE': '__MODULE__',
+          'URL': '__URL__',
+          'IMAGE_DOMAIN': '{$image_domain}'
+      };
+  </script>
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1></h1>
+</div>
+<!--close-Header-part-->
+
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+
+  <ul class="nav">
+
+    <!--<li id="m1" class=""><a title="" href="__MODULE__/Index/index.html" ><i class="icon icon-file"></i> <span class="text">首页</span></a>-->
+    <!--</li>-->
+    <!--<li id="m2" class=""><a title="" href="__MODULE__/User/userlist.html" ><i class="icon icon-cog"></i> <span class="text">系统</span></a>-->
+    <!--</li>-->
+    <!--<li id="m3" class=""><a title="" href="__MODULE__/User/index.html" ><i class="icon icon-user"></i> <span class="text">会员管理</span></a>-->
+    <!--</li>-->
+    <?php
+  $top_menu = C('TOP_MENU');
+?>
+    <volist name="top_menu" id="menu">
+      <li id="{$menu.id}" class=""><a title="{$menu.title}"
+                                      href="{:U('Index/index', array('name'=>$menu['id']))}"><i
+        class="icon {$menu.style}"></i> <span class="text">{$menu.title}</span></a>
+    </volist>
+
+
+  </ul>
+</div>
+<!--close-top-Header-menu-->
+<!--start-top-serch-->
+
+<div id="search">
+  <div id="search-nav">
+    <ul>
+      <li class="dropdown" id="profile-messages"><a title="" href="#" data-toggle="dropdown"
+                                                    data-target="#profile-messages"
+                                                    class="dropdown-toggle"><i
+        class="icon icon-user"></i> <span class="text">{$Think.session.username}</span><b
+        class="caret"></b></a>
+        <ul class="dropdown-menu" style="min-width: 74px">
+          <li><a href="__MODULE__/Index/logout"><i class="icon-key"></i>退出</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="sidebar" runat="server"><a href="#" class="visible-phone"><i class="icon icon-home"></i>
+  Dashboard</a>
+  <block name="menu">
+  </block>
+</div>
+<!--sidebar-menu-->
+
+<!--main-container-part-->
+<div id="content">
+  <!--breadcrumbs-->
+
+  <!--End-breadcrumbs-->
+
+  <!--Action boxes-->
+  <div class="container-fluid" style="margin-top: -38px;">
+
+    <!--End-Action boxes-->
+
+    <!--主要内容-->
+    <div class="row-fluid">
+
+      <block name="content">
+
+      </block>
+
+
+    </div>
+  </div>
+</div>
+<!--end-main-container-part-->
+
+<!--Footer-part-->
+
+
+<!--end-Footer-part-->
+
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/Admin/js/sidebar.js"></script>
+<!--<script src="__PUBLIC__/Admin/js/matrix.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.dashboard.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/jquery.gritter.min.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.interface.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.chat.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/jquery.validate.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.form_validation.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/jquery.wizard.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/jquery.uniform.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/select2.min.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.popover.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="__PUBLIC__/Admin/js/matrix.tables.js"></script>-->
+<script src="__PUBLIC__/Admin/js/func.js"></script>
+<script src="__PUBLIC__/Admin/js/toastr.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Admin/js/kindeditor/themes/default/default.css"/>
+<script src="__PUBLIC__/Admin/js/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Admin/js/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Admin/js/layer/layer.js" type="text/javascript"></script>
+
+<block name="javascript">
+
+</block>
+<script type="text/javascript">
+    // This function is called from the pop-up menus to transfer to
+    // a different page. Ignore if the value returned is a null string:
+    function goPage(newURL) {
+
+        // if url is empty, skip the menu dividers and reset the menu selection to default
+        if (newURL != "") {
+
+            // if url is "-", it is this page -- reset the menu:
+            if (newURL == "-") {
+                resetMenu();
+            }
+            // else, send page to designated URL
+            else {
+                document.location.href = newURL;
+            }
+        }
+    }
+
+    // resets the menu selection upon entry to this page:
+    function resetMenu() {
+        document.gomenu.selector.selectedIndex = 2;
+    }
+
+
+</script>
+</body>
+</html>

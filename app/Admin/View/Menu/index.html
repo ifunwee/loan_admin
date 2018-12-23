@@ -1,0 +1,66 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/Page.css">
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="main-body">
+
+    <h2 class="sub-header">
+      菜单管理
+      <a href="{:U('edit')}" class="btn btn-info pull-right">新增菜单</a>
+    </h2>
+
+    <hr/>
+    <div class="userlist">
+      <form action="{:U('index')}" method="post">
+        <table class="list table table-bordered table-hover">
+          <thead>
+          <tr>
+            <th>排序</th>
+            <th>名称</th>
+            <th>唯一标识</th>
+            <th>状态</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <Volist name='list' id='rs'>
+            <tr>
+              <php>$rs['sort'] = (int)$rs['sort'] == 999999 ? '' : $rs['sort']</php>
+              <td><input type='text' name="sort[{$rs.id}]" value="{$rs.sort}"
+                         style="width: 30px; text-align: center"></td>
+              <td>{$rs.title}</td>
+              <td>{$rs.identity}</td>
+              <td>
+                <if condition="$rs.status eq '1' ">
+                  启用
+                  <else/>
+                  禁用
+                </if>
+              </td>
+              <td>
+                <span><a href="{:U('edit', array('id' => $rs['id']))}"
+                         class="btn btn-info">修改</a></span>
+                <span><a href="{:U('del', array('id' => $rs['id']))}" name="del"
+                         class="btn btn-danger"
+                         onclick="return confirm('您确定要删除该条记录吗？')">删除</a></span>
+              </td>
+            </tr>
+          </Volist>
+          </tbody>
+        </table>
+        <div class="green-black">{$page}</div>
+
+        <div class="control-group">
+          <input type="submit" class="btn btn-info submit" style="width: 99%;" value="排序"/>
+        </div>
+      </form>
+
+
+    </div>
+
+  </div>
+</block>

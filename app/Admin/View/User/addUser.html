@@ -1,0 +1,73 @@
+<extend name="Public/base"/>
+
+<block name="css">
+
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h2 class="sub-header">添加用户</h2>
+    <hr/>
+    <div class="table-responsive">
+      <form class="form-horizontal" id="add" action="__URL__/add" method="POST" role="form">
+        <div class="control-group">
+          <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+
+          <div class="controls">
+            <input type="text" class="span11" id="inputEmail3" name="username" placeholder="用户名"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+
+          <div class="controls">
+            <input type="password" class="span11" id="inputPassword3" name="password"
+                   placeholder="密码"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
+
+          <div class="controls">
+            <input type="text" class="span11" id="inputEmail" name="email"
+                   placeholder="邮箱"/>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="controls">
+            <select name="role_id[]" class="control-control">
+              <option value="">选择角色</option>
+              <foreach name="role" item="v">
+                <option value="{$v['id']}">{$v.name}({$v.remark})</option>
+              </foreach>
+            </select>
+            <a class="btn btn-primary" id="role">添加一个角色</a>
+          </div>
+
+        </div>
+
+        <div class="control-group" id="last">
+          <div class="controls">
+            <button type="submit" class="btn btn-info submit">保存</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</block>
+
+<block name="javascript">
+  <script>
+
+      $('#role').click(function () {
+          var obj = $(this).parents('.control-group').clone();
+          obj.find('#role').remove();
+          $('#last').before(obj);
+      });
+
+  </script>
+  <script type="text/javascript" src="__PUBLIC__/Admin/js/adduser.js"></script>
+</block>

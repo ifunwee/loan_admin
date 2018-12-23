@@ -1,0 +1,47 @@
+.app {
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: #ccc solid 1px;
+}
+
+.app dl {
+    margin: 10px 0;
+    border: #ccc solid 1px;
+    height: auto;
+    overflow: hidden;
+}
+
+.app dl dt {
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    background: #e6e6e6;
+    text-index: 10px;
+    padding: 0 10px;
+}
+
+.app dl dd {
+    float: left;
+    margin: 0 10px;
+    padding: 10px 15px;
+}
+
+.add-app {
+    float: right;
+    margin: 0 30px 5px 10px;
+}
+
+.method {
+    float: right;
+}
+
+.topic {
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    text-align: left;
+}

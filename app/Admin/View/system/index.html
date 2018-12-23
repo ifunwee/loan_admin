@@ -1,0 +1,52 @@
+<extend name="Public/base"/>
+<style>
+  .input500 {
+    width: 500px;
+  }
+
+  .inputall {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: #fff none repeat scroll 0 0;
+    border-color: #c8c8c8 #cfcfcf #cfcfcf #c8c8c8;
+    border-image: none;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 13px;
+    height: 26px;
+    line-height: 26px;
+    padding: 2px 5px;
+  }
+</style>
+<block name="content">
+  <div class="main-body">
+    <h2 id="sub-header">后台系统设置</h2>
+    <hr/>
+    <div id="add_system">
+
+      <form method="post" name="add" class="form-horizontal" id="sub">
+        <table class="list table table-bordered table-hover">
+          <!--<thead>-->
+          <!--<tr>-->
+          <!--<th>编号</th>-->
+          <!--<th>名称</th>-->
+          <!--<th>显示名</th>-->
+          <!--<th>状态</th>-->
+          <!--<th>操作</th>-->
+          <!--</tr>-->
+          <!--</thead>-->
+          <tr>
+            <td align=align>网站名称</td>
+            <td><input class="inputall input500" type="text" name="info[web_name]" value=""/></td>
+          </tr>
+        </table>
+      </form>
+
+    </div>
+  </div>
+</block>
+
+

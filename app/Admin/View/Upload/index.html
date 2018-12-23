@@ -1,0 +1,20 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/Role.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/Page.css">
+</block>
+
+<block name="content">
+
+  <body>
+  <div class="data_grid" style=" width:95%;float:left;padding:10px 20px 20px">
+    <form action="__URL__/upload" enctype="multipart/form-data" method="post">
+
+      <input type="file" name="photo1"/>
+      <input type="file" name="photo2"/>
+      <input type="file" name="photo3"/>
+      <input type="submit" value="提交">
+    </form>
+  </div>
+  </body>
+</block>

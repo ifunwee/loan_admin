@@ -1,0 +1,67 @@
+<extend name="Public/base"/>
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/Role.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/Page.css">
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="main-body">
+
+    <h2 class="sub-header">会员管理</h2>
+    <hr/>
+    <div class="oprate_area">
+      <div class="operate">
+        <a href="__URL__/addUser">
+          <button type="button" class="btn btn-info">新增</button>
+        </a>
+        <button type="button" class="btn btn-info edit">编辑</button>
+        <button type="button" class="btn btn-info del">删除</button>
+      </div>
+    </div>
+    <div class="userlist">
+
+      <table class="list table table-bordered table-hover">
+
+        <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>用户名称</th>
+          <th>邮箱</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <Volist name='data' id='data'>
+          <tr>
+            <td style="text-align: center;vertical-align: middle;"><input type="radio"
+                                                                          value="{$data.id}"
+                                                                          name="select"></td>
+            <td style="text-align: center;vertical-align: middle;">{$data.id}</td>
+            <td style="text-align: center;vertical-align: middle;">{$data.username}</td>
+            <td style="text-align: center;vertical-align: middle;">{$data.email}</td>
+
+            <td>
+              <span><a href="__URL__/alterUser/id/{$data.id}" class="btn btn-info">修改</a></span>
+              <span><a href="__URL__/del/id/{$data.id}" name="del"
+                       class="btn btn-danger">删除</a></span>
+              </if>
+            </td>
+          </tr>
+        </Volist>
+        </tbody>
+      </table>
+
+      <div class="green-black">{$page}</div>
+
+    </div>
+
+  </div>
+</block>
+
+<block name="javascript">
+  <script type="text/javascript" src="__PUBLIC__/Admin/js/del.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/Admin/js/User.js"></script>
+</block>

@@ -1,0 +1,17 @@
+<?php $left_menu = session('LEFT_MENU');?>
+<ul>
+  <volist name="left_menu.list" id="menu">
+    <li class="submenu open">
+      <a href="#">
+        <i class="icon icon-th-list"></i> <span>{$menu['title']}</span>
+        <!--<span class="label label-important">{:count($menu['list'])}</span>-->
+      </a>
+      <ul>
+        <volist name="menu['list']" id="item">
+          <li><a href="{:U($item['url'])}">{$item['title']}</a></li>
+        </volist>
+      </ul>
+    </li>
+  </volist>
+
+</ul>

@@ -1,0 +1,59 @@
+<extend name="Public/base"/>
+
+<block name="css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/Role.css">
+</block>
+<script type="text/javascript">
+    var same = 'php_shixi/trunk/Admin/Role/index.html';
+</script>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+<block name="content">
+  <div class="main-body">
+    <h2 class="sub-header">角色添加</h2>
+    <hr/>
+    <div class="add_user">
+
+      <form method="post" name="add" class="form-horizontal" id="sub">
+        <div class="control-group">
+          <label for="inputname" class="control-label">角色：</label>
+
+          <div class="controls">
+            <input type='text' class="form-control" name="name" id='inputusername'
+                   placeholder="请输入角色名">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="inputname" class="control-label">状态：</label>
+
+          <div class="controls">
+            <select class="selectpicker" name="status" data-style="btn-info">
+              <option value="1">启用</option>
+              <option value="0">禁用</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="inputname" class="control-label">描述：</label>
+
+          <div class="controls">
+                        <textarea type='text' class="form-control remark" name="remark"
+                                  id='inputuserage'
+                                  placeholder="请对你的角色进行描述"></textarea>
+          </div>
+        </div>
+        <div class="click">
+          <input type="submit" class="btn btn-info submit"/>
+          <input type="reset" class="btn btn-info" id="re" value="重置"/>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</block>
+<block name="javascript">
+  <script type="text/javascript" src="__PUBLIC__/Admin/js/add.js"></script>
+</block>

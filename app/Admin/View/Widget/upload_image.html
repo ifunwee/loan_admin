@@ -1,0 +1,22 @@
+<style>#image-box .preview {
+
+width: {
+  $ show_width
+}
+
+px
+
+;
+}</style>
+<div id="image-box">
+  <empty name="image">
+    <img class="preview" src="__PUBLIC__/Admin/img/no_pic.png"/>
+    <else/>
+    <img class="preview" src="{$image_domain}{$image}"/>
+  </empty>
+  <input type="button" class="btn btn-info" value="上传图片"
+         onclick="open_upload_dlg(this, '{$id}', '{$dir}', '{$show_width}', '{$bucket}')"/>
+  <input type='hidden' name="width" class='width' value="">
+  <input type='hidden' name="height" class='height' value="">
+  <input type='hidden' name="{$name}" class='{$id}' value="{$image}">
+</div>

@@ -1,0 +1,36 @@
+* {
+    border: 0;
+    padding: 0;
+}
+
+.oprate_area {
+    display: table;
+    line-height: 28px;
+}
+
+.operate {
+    float: left;
+}
+
+.search {
+    float: left;
+    margin-left: 10px;
+}
+
+.key button {
+    position: relative;
+    left: -3px;
+    top: -5px;
+}
+
+.remark {
+    height: 250px;
+    max-height: 250px;
+    width: 200px;
+    max-width: 200px;
+}
+
+.click {
+    position: relative;
+    left: 220px;
+}

@@ -1,0 +1,74 @@
+<extend name="Public/base"/>
+
+<block name="css">
+
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/Role.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/Page.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/node.css">
+</block>
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+
+<block name="content">
+  <div class="container-fluid">
+    <div class="row">
+
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h2 class="sub-header">节点列表</h2>
+        <hr/>
+        <div class="table-responsive">
+          <a href="{:U('addNode')}" class="add-app btn btn-info">添加应用</a>
+
+          <volist name="node" id="app">
+            <div class='app'>
+              <p class="topic">
+                <strong>{$app['title']}</strong>
+                <span class="method">
+                                    <a href="{:U('addNode',array('pid'=>$app['id'],'level'=>2))}"
+                                       class="btn btn-default edit">添加控制器</a>
+                                    <a href="__URL__/alterNode/id/{$app.id}"
+                                       class="btn btn-info edit">修改</a>
+                                    <a href="__URL__/del/id/{$app.id}"
+                                       class="btn btn-danger del">删除</a>
+                                </span>
+              </p>
+
+              <volist name="app.child" id="action">
+                <dl>
+                  <dt style="color:#f00;">
+                    <strong>{$action.title}</strong>
+                    <span class="method">
+                                            <a
+                                              href="{:U('addNode',array('pid'=>$action['id'],'level'=>3))}"
+                                              class="btn btn-gold">添加方法</a>
+                                            <a href="__URL__/alterNode/id/{$action.id}"
+                                               class="btn btn-info btn-xs">修改</a>
+                                            <a href="__URL__/del/id/{$action.id}"
+                                               class="btn btn-danger btn-xs del">删除</a>
+                                        </span>
+                  </dt>
+                  <volist name="action.child" id="method">
+                    <dd>
+                      <span>{$method.title}</span>
+                      <a href="__URL__/alterNode/id/{$method.id}"
+                         class="btn btn-default btn-xs">修改</a>
+                      <a href="__URL__/del/id/{$method.id}" class="btn btn-danger btn-xs del">删除</a>
+                    </dd>
+                  </volist>
+                </dl>
+
+              </volist>
+            </div>
+
+          </volist>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</block>
+<block name="javascript">
+  <script src="__PUBLIC__/Admin/js/Node.js"></script>
+</block>

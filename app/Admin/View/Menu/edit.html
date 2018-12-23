@@ -1,0 +1,293 @@
+<extend name="Public/base"/>
+
+<block name="menu">
+  <include file='Public/menu'/>
+</block>
+
+<block name="content">
+  <div class="main-body">
+    <h2 class="sub-header">
+      <empty name="id">添加
+        <else/>
+        编辑
+      </empty>
+      菜单
+      <a href="{:U('index')}" class="btn btn-info pull-right">返回菜单列表</a>
+    </h2>
+    <hr/>
+    <div class="add_user">
+      <form method="post" class="form-horizontal" action="{:U('edit')}">
+        <div class="control-group">
+          <label for="title" class="control-label">菜单标题：</label>
+          <div class="controls">
+            <input type='text' class="form-control" name="title" id='title' placeholder="请输入菜单标题"
+                   value="{$data.title}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="identity" class="control-label">唯一标识：</label>
+          <div class="controls">
+            <!--<input type='text' class="form-control" name="identity" id='identity' placeholder="只支持英文字母或拼音" value="{$data.identity}">-->
+            <php>$identity_array = C('identity')</php>
+            <select name="identity" id="identity">
+              <option value="">请选择</option>
+              <volist name="identity_array" id="vo">
+                <option value="{$vo}"
+                <eq name="data.identity" value="$vo">selected=selected</eq>
+                >{$key}</option>
+              </volist>
+            </select>
+            <span>（与seo相关，请确保唯一性，设置后不随意更改）</span>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="title" class="control-label">分类ID：</label>
+          <div class="controls">
+            <input type='text' class="form-control" name="category_id" id='category_id'
+                   placeholder="请输入分类ID" value="{$data.category_id}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">菜单状态：</label>
+          <div class="controls">
+            <notempty name="id">
+              <span><input type="radio" name="status" id="status-off" value="0" class="radio inline" <empty
+                name="data.status">checked</empty> />禁用</span>
+              <span><input type="radio" name="status" id="status-on" value="1" class="radio inline"  <notempty
+                name="data.status">checked</notempty> />启用</span>
+              <else/>
+              <span><input type="radio" name="status" id="status-off" value="0"
+                           class="radio inline"/>禁用</span>
+              <span><input type="radio" name="status" id="status-on" value="1" class="radio inline"
+                           checked/>启用</span>
+            </notempty>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">标签设置：</label>
+          <div class="controls">
+            （一般为二级分类）
+          </div>
+        </div>
+
+        <table class="list table table-bordered table-hover" id="tags-table"
+               style="margin-top: 10px;">
+          <thead>
+          <tr>
+            <th>标签名称</th>
+            <th>跳转地址</th>
+            <th><a class="btn btn-success tags-add" href="###">新增</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="tags-clone" class="item" style="display: none;">
+            <td><input type='text' class="form-control tags-title" value=""></td>
+            <td><input type='text' class="form-control tags-url" value=""></td>
+            <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+          </tr>
+
+          <empty name="data.tags">
+            <tr class="item">
+              <td><input type='text' class="form-control tags-title" name="tags[1][title]" value="">
+              </td>
+              <td><input type='text' class="form-control tags-url" name="tags[1][url]" value="">
+              </td>
+              <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+            </tr>
+            <else/>
+            <volist name="data.tags" id="vo">
+              <tr class="item">
+                <td><input type='text' class="form-control tags-title" name="tags[{$i}][title]"
+                           value="{$vo.title}"></td>
+                <td><input type='text' class="form-control tags-url" name="tags[{$i}][url]"
+                           value="{$vo.url}"></td>
+                <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+              </tr>
+            </volist>
+          </empty>
+
+
+          </tbody>
+        </table>
+
+        <div class="control-group">
+          <label class="control-label">品牌设置：</label>
+          <div class="controls ">
+            （分类下的知名品牌）
+          </div>
+        </div>
+
+        <table class="list table table-bordered table-hover" id="brand-table"
+               style="margin-top: 10px;">
+          <thead>
+          <tr>
+            <th>品牌标题</th>
+            <th>跳转地址</th>
+            <th><a class="btn btn-success brand-add" href="###">新增</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="brand-clone" class="item" style="display: none;">
+            <td><input type='text' class="form-control brand-title" value=""></td>
+            <td><input type='text' class="form-control brand-url" value=""></td>
+            <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+          </tr>
+
+          <empty name="data.brand">
+            <tr class="item">
+              <td><input type='text' class="form-control brand-title" name="brand[1][title]"
+                         value=""></td>
+              <td><input type='text' class="form-control brand-url" name="brand[1][url]" value="">
+              </td>
+              <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+            </tr>
+            <else/>
+            <volist name="data.brand" id="vo">
+              <tr class="item">
+                <td><input type='text' class="form-control brand-title" name="brand[{$i}][title]"
+                           value="{$vo.title}"></td>
+                <td><input type='text' class="form-control brand-url" name="brand[{$i}][url]"
+                           value="{$vo.url}"></td>
+                <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+              </tr>
+            </volist>
+          </empty>
+          </tbody>
+        </table>
+
+        <div class="control-group">
+          <label class="control-label">商品设置：</label>
+          <div class="controls " style="color: #ff0000">
+            （所填内容不可为空！）
+          </div>
+        </div>
+
+        <table class="list table table-bordered table-hover" id="goods-table"
+               style="margin-top: 10px;">
+          <thead>
+          <tr>
+            <th>商品id</th>
+            <th>标题</th>
+            <th>图片(规定尺寸:80px * 80px)</th>
+            <th>跳转地址</th>
+            <th><a class="btn btn-success goods-add" href="###">新增</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="goods-clone" class="item" style="display: none;">
+            <td><input type='text' class="form-control goods-id" value=""></td>
+            <td>
+              展示标题：<input type='text' class="form-control goods-title" value=""><br>
+              SEO标题：<input type='text' class="form-control goods-seo-title" value="">
+            </td>
+            <!--挂件参数 array(表单元素name, 表单元素标识, 图片地址, 图片上传目录, 图片展示宽度（可选）, 图片上传别名空间（可选）)-->
+            <td>{:W('Upload/image', array('', 'goods-image', '', 'menu-goods', '100'))}</td>
+            <td><input type='text' class="form-control goods-url" value=""></td>
+            <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+          </tr>
+
+          <empty name="data.goods">
+            <tr class="item">
+              <td><input type='text' class="form-control goods-id" name="goods[1][goods_id]"
+                         value=""></td>
+              <td>
+                <label>展示标题：</label><input type='text' class="form-control goods-title"
+                                           name="goods[1][title]" value="">
+                <span style="margin:3px 0;"></span>
+                <label>SEO标题：</label><input type='text' class="form-control goods-seo-title"
+                                            name="goods[1][seo_title]" value="">
+              </td>
+              <td>{:W('Upload/image', array('goods[1][image]', 'goods-image', '', 'menu-goods',
+                '100' ))}
+              </td>
+              <td><input type='text' class="form-control goods-url" name="goods[1][url]" value="">
+              </td>
+              <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+            </tr>
+            <else/>
+            <volist name="data.goods" id="vo">
+              <tr class="item">
+                <td><input type='text' class="form-control goods-id" name="goods[{$i}][goods_id]"
+                           value="{$vo.goods_id}"></td>
+                <td>
+                  <label>展示标题：</label><input type='text' class="form-control goods-title"
+                                             name="goods[{$i}][title]" value="{$vo.title}"><br>
+                  <span style="height: 8px;display: block;"></span>
+                  <label>SEO标题：</label><input type='text' class="form-control goods-seo-title"
+                                              name="goods[{$i}][seo_title]" value="{$vo.seo_title}">
+                </td>
+                <td>{:W('Upload/image', array('goods['.$i.'][image]', 'goods-image', $vo['image'],
+                  'menu-goods', '100'))}
+                </td>
+                <td><input type='text' class="form-control goods-url" name="goods[{$i}][url]"
+                           value="{$vo.url}"></td>
+                <td><a href="#" class="btn btn-danger item-del">删除</a></td>
+              </tr>
+            </volist>
+          </empty>
+          </tbody>
+        </table>
+
+        <div class="control-group">
+          <input type="submit" class="btn btn-info submit" style="width: 99%;"/>
+          <input type="hidden" name="id" value="{$id}">
+        </div>
+      </form>
+
+    </div>
+  </div>
+  <script>
+      $(function () {
+          $(".tags-add").click(function () {
+              var trs = $('#tags-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#tags-clone").clone(true);
+              clone_node.find(".tags-title").val("").attr('name', 'tags[' + item_index + '][title]');
+              clone_node.find(".tags-url").val("").attr('name', 'tags[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#tags-table').append(clone_node);
+          });
+
+          $(".brand-add").click(function () {
+              var trs = $('#brand-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#brand-clone").clone(true);
+              clone_node.find(".brand-title").val("").attr('name', 'brand[' + item_index + '][title]');
+              clone_node.find(".brand-url").val("").attr('name', 'brand[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#brand-table').append(clone_node);
+          });
+
+          $(".goods-add").click(function () {
+              var trs = $('#goods-table .item:last');
+              var item_index = trs.index('.item') + 1;
+              var clone_node = $("#goods-clone").clone(true);
+              clone_node.find(".goods-id").val("").attr('name', 'goods[' + item_index + '][goods_id]');
+              clone_node.find(".goods-title").val("").attr('name', 'goods[' + item_index + '][title]');
+              clone_node.find(".goods-seo-title").val("").attr('name', 'goods[' + item_index + '][seo_title]');
+              clone_node.find(".goods-image").val("").attr('name', 'goods[' + item_index + '][image]');
+              clone_node.find(".goods-url").val("").attr('name', 'goods[' + item_index + '][url]');
+              clone_node.removeAttr('id');
+              clone_node.show();
+              $('#goods-table').append(clone_node);
+          });
+
+
+          $(".item-del").click(function () {
+              if (confirm('确定要删除该项吗？')) {
+                  $(this).parent().parent().remove();
+              }
+          });
+
+      })
+  </script>
+  <style>.item label {
+    text-align: right;
+    display: inline-block;
+    width: 100px;
+  }</style>
+</block>
+
+

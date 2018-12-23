@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{$title}</title>
+
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/login.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/Static/font-awesome.css">
+  <link href="__PUBLIC__/Admin/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+  <script type="text/javascript" src="__PUBLIC__/Static/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/Static/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<style>
+  img {
+    border-radius: 80px;
+  }
+</style>
+<body style="background-image: url('__PUBLIC__/Admin/img/bkg.png')">
+
+<div class="container">
+
+
+  <div id="login" style="position:relative;margin: 264px;">
+    <h2 class="form-sigin-heading">后台管理系统</h2>
+
+    <div id="logo" style="position: absolute;top: -32%;left: 37%;">
+      <img src="__PUBLIC__/Admin/img/logo2.png" width="150px" height="150px">
+    </div>
+    <div class="login-panel">
+      <form class="form-horizontal form-signin" id="loginForm" action="__URL__/checklogin"
+            role="form"
+            method="post">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="icon-user"></i>
+            </div>
+            <input type="text" class="form-control" name="username" id="username" placeholder="账户"
+                   autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class="icon-lock"></i>
+            </div>
+            <input type="password" class="form-control" name="password" id="password"
+                   placeholder="密码"
+                   autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group" style="display:inline">
+            <div class="input-group-addon" style="float:left;width:33px;height:34px">
+              <i class="icon-pencil"></i>
+            </div>
+
+            <div style="float:left;width: 188px">
+              <input type="text" class="form-control" name="verify" id="verify" placeholder="验证码"
+                     autocomplete="off">
+            </div>
+            <div style="float:right">
+              <img id="verifyImg" style="width: 89px;height: 32px;" alt="验证码" src="__URL__/verifya"
+                   onclick="pe_yzm(this)"/>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block btn-login" id="submit">
+            登陆
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/Admin/js/login.js"></script>
+<script type="text/javascript">
+    function pe_yzm(_this) {
+        var yzm_url = $(_this).attr("src");
+        var yzm_time = new Date().getTime();
+        if (yzm_url.indexOf("time") >= 0) {
+            yzm_url = yzm_url.replace(/time=\d+/, 'time=' + yzm_time);
+        }
+        else {
+            yzm_url += (yzm_url.indexOf("?") >= 0 ? '&' : '?') + 'time=' + yzm_time;
+        }
+        $(_this).attr("src", yzm_url);
+    }
+</script>
+
+</body>
+
+</html>
