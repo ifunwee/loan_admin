@@ -23,6 +23,9 @@
             <th>名称</th>
             <th>LOGO</th>
             <th>状态</th>
+            <th>描述</th>
+            <th>跳转链接</th>
+            <th>备注</th>
             <th>操作</th>
           </tr>
           </thead>
@@ -41,12 +44,12 @@
                   下架
                 </if>
               </td>
+              <td>{$rs.description}</td>
+              <td>{$rs.url}</td>
+              <td>{$rs.remark}</td>
               <td>
-              <span><a href="{:U('edit', array('id' => $rs['id']))}"
-                       class="btn btn-info">编辑</a></span>
-                <span><a href="{:U('del', array('id' => $rs['id']))}" name="del"
-                         class="btn btn-danger"
-                         onclick="return confirm('您确定要删除该条记录吗？')">删除</a></span>
+              <span><a href="{:U('edit', array('id' => $rs['id']))}" target="_blank" class="btn btn-info">编辑</a></span>
+              <span><a href="{:U('del', array('id' => $rs['id']))}" name="del" class="btn btn-danger" onclick="return confirm('您确定要删除该条记录吗？')">删除</a></span>
               </td>
             </tr>
           </Volist>
