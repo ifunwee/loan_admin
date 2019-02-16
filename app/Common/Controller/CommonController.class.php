@@ -115,4 +115,18 @@ class CommonController extends Controller
         $this->success('排序成功', U('index'));
     }
 
+    public function _search($keyword, $db = CONTROLLER_NAME)
+    {
+        $model = M($db);
+        $condition = array('title' => array("like","%".trim($keyword)."%"));
+        $count = $model->where($condition)->count();
+        $page = new  Page($count, 2);
+        $list = $model->where($condition)->limit($page->firstRow . ',' . $page->listRows)->select();
+
+        $this->assign('page', $page->show());
+        $this->assign('list', $list);
+        $this->assign('keyword', $keyword);
+        $this->display();
+    }
+
 }

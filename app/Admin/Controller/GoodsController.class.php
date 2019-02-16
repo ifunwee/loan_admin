@@ -17,10 +17,14 @@ class GoodsController extends CommonController
      */
     public function index()
     {
+        $keyword  = I('keyword');
+        $keyword && $this->_search($keyword);
+
         $model = D(CONTROLLER_NAME);
         $count = $model->count();
         $p     = I('p');
         $sort  = I('sort');
+
         $limit = 10;
         $page  = new Page($count, $limit);
         $list  = $model->order('status desc, sort desc')->page($p, $limit)->select();

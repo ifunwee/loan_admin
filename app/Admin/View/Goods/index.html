@@ -14,7 +14,13 @@
     </h2>
 
     <hr/>
-    <div class="userlist">
+    <div>
+      <form action="{:U('index')}" method="post">
+        <input name="keyword" value="{$keyword}" />
+        <input type="submit" class="btn btn-info submit" value="搜索"/>
+      </form>
+    </div>
+    <div class="userlist" style="margin-top: 10px;">
       <form action="{:U('index')}" method="post">
         <table class="list table table-bordered table-hover">
           <thead>
